@@ -1,0 +1,18 @@
+# Environment Variables
+.env
+__pycache__/
+*.pyc
+
+# Model Weights
+# *.pth (Allowed: <100MB)
+
+# Dataset Cache
+.cache/
+data/
+
+# Streamlit
+.streamlit/
+
+# OS specific
+.DS_Store
+Thumbs.db

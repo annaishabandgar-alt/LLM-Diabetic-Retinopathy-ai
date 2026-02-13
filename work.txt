@@ -1,0 +1,51 @@
+Diabetic Retinopathy Prediction System - Comprehensive Guide
+
+1. Project Overview
+This is an advanced AI-powered medical diagnostic tool for Diabetic Retinopathy (DR). It combines Computer Vision (for image analysis) and GenAI (for medical reasoning) to provide a holistic diagnosis.
+
+2. Key Features
+- Multimodal Analysis: Uses both Retinal Images + Clinical Data (Age, HbA1c, BP).
+- Gatekeeper AI: Visual validation to reject non-medical images.
+- Robust Logging: Automatically saves every patient record to predictions.csv.
+- Privacy First: API Keys are hidden, and optional patient data is handled locally.
+
+3. Technology Stack
+- Model: ResNet50 (Fine-tuned on OLIVES Dataset).
+- LLM: GPT-4o (Vision) & GPT-4 (Medical Reasoning).
+- Frontend: Streamlit (Python).
+- Libraries: PyTorch, OpenAI, Pandas, Tenacity (Retry Logic).
+
+4. How It Works (Step-by-Step)
+
+Step 1: Data Input
+- Image: User uploads a Fundus/OCT scan.
+- Clinical Features (Optional): User can enter Age, HbA1c, BP, etc., OR upload a CSV file containing these biomarkers.
+
+Step 2: Validation (Safety Check)
+- The system converts the image to RGB (to handle PNG transparency).
+- GPT-4o Vision checks if the image is a valid eye scan. If not, it blocks the process.
+
+Step 3: Image Diagnosis (The "Eye")
+- The ResNet50 model analyzes the image pixels.
+- It predicts: Healthy or At Risk with a confidence score (e.g., 92%).
+
+Step 4: Multimodal Reasoning (The "Brain")
+- The system combines:
+    1. Image Prediction (from Step 3).
+    2. Clinical Data (from Step 1).
+- It sends this package to GPT-4 Doctor with a prompt:
+    "Patient has High Blood Pressure (140/90) and HbA1c 8.5. Image shows signs of DR. assess risk."
+- Result: A tailored medical explanation that considers both the eye condition and the patient's systemic health (Diabetes/BP).
+
+Step 5: Logging
+- The system logs a new row in predictions.csv with timestamp, patient details, and result.
+
+5. Dataset Info
+- Source: OLIVES Dataset (Ophthalmic Labels for Investigating Visual Eye Semantics).
+- Training: Trained on a specific subset for binary classification (Disease vs. Healthy).
+
+6. How to Run
+1. Start App: streamlit run app.py
+2. Upload: Select an image.
+3. Optional: Open "Clinical Features" to enter data or upload a Biomarker CSV.
+4. View Report: See the AI's detailed analysis.

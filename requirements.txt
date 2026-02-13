@@ -1,0 +1,9 @@
+torch
+torchvision
+datasets
+openai
+streamlit
+python-dotenv
+tenacity
+pillow
+pandas
